@@ -1,0 +1,15 @@
+.env
+.DS_Store
+**/.DS_Store
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+*.pkl
+*.zip
+*.ckpt
+temp.py
+
+# 개인정보 포함 문서
+*수행계획서*.pdf
