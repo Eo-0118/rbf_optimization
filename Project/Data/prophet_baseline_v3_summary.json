@@ -1,0 +1,71 @@
+{
+  "config": {
+    "n_samples_per_type": 50,
+    "train_months": 18,
+    "val_months": 3,
+    "test_months": 3,
+    "exogenous_vars": [
+      "naver_index",
+      "promo"
+    ],
+    "post_process_clip_negative": true,
+    "kosis_trend_excluded": "leakage 우려로 제외"
+  },
+  "overall": {
+    "n_total": 273,
+    "n_ok": 270,
+    "mape_test_mean": 89.38305418387651,
+    "mape_test_median": 44.05555361942098,
+    "smape_test_mean": 94.00887087324342,
+    "smape_test_median": 97.14035786636475,
+    "wape_test_mean": 111.96788404870746,
+    "wape_test_median": 76.86404193126346,
+    "mape_test_pct_under_20": 21.48148148148148,
+    "smape_test_pct_under_20": 15.185185185185185,
+    "wape_test_pct_under_20": 14.074074074074074
+  },
+  "by_type": {
+    "decline": {
+      "n": 50,
+      "mape_test_median": 74.52322764877249,
+      "smape_test_median": 131.6095074846537,
+      "wape_test_median": 100.0,
+      "wape_test_pct_under_20": 2.0
+    },
+    "growth": {
+      "n": 50,
+      "mape_test_median": 21.274034287856367,
+      "smape_test_median": 21.23085536892528,
+      "wape_test_median": 22.78085828912638,
+      "wape_test_pct_under_20": 44.0
+    },
+    "other": {
+      "n": 50,
+      "mape_test_median": 53.647614815798846,
+      "smape_test_median": 121.37254871586936,
+      "wape_test_median": 96.56408057530899,
+      "wape_test_pct_under_20": 0.0
+    },
+    "seasonal": {
+      "n": 33,
+      "mape_test_median": 55.60490130928498,
+      "smape_test_median": 124.18899972591164,
+      "wape_test_median": 100.0,
+      "wape_test_pct_under_20": 3.0303030303030303
+    },
+    "stable": {
+      "n": 50,
+      "mape_test_median": 32.58629568218583,
+      "smape_test_median": 32.488208274739804,
+      "wape_test_median": 30.546579398965896,
+      "wape_test_pct_under_20": 28.000000000000004
+    },
+    "volatile": {
+      "n": 37,
+      "mape_test_median": 74.34660493877756,
+      "smape_test_median": 146.77997791666178,
+      "wape_test_median": 106.3857048928032,
+      "wape_test_pct_under_20": 0.0
+    }
+  }
+}

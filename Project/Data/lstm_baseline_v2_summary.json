@@ -1,0 +1,81 @@
+{
+  "config": {
+    "context_len": 9,
+    "pred_len": 6,
+    "hidden": 128,
+    "layers": 2,
+    "dropout": 0.25,
+    "epochs": 80,
+    "batch_size": 64,
+    "lr": 0.001,
+    "type_emb_dim": 8,
+    "exog_vars": [
+      "naver_index",
+      "promo"
+    ],
+    "loss": "SmoothL1Loss (Huber)",
+    "weighted_sampler": true,
+    "lr_schedule": "cosine"
+  },
+  "training": {
+    "final_train_loss": 0.05252076932103247,
+    "final_val_loss": 0.17236470017168257,
+    "best_val_loss": 0.1575444589058558
+  },
+  "overall": {
+    "n_total": 1302,
+    "mape_test_mean": 157.64490554669223,
+    "mape_test_median": 42.63547260759204,
+    "smape_test_mean": 77.59860233421215,
+    "smape_test_median": 63.70078673720141,
+    "wape_test_mean": 76.77178025089941,
+    "wape_test_median": 50.33918998790412,
+    "mape_test_pct_under_20": 6.067588325652841,
+    "smape_test_pct_under_20": 2.7649769585253456,
+    "wape_test_pct_under_20": 2.9185867895545314
+  },
+  "by_type": {
+    "decline": {
+      "n": 54,
+      "mape_test_median": 65.86629117663054,
+      "smape_test_median": 129.11605507947712,
+      "wape_test_median": 92.59918801650726,
+      "wape_test_pct_under_20": 0.0
+    },
+    "growth": {
+      "n": 101,
+      "mape_test_median": 33.64843833090399,
+      "smape_test_median": 41.88691952699119,
+      "wape_test_median": 35.9351442688375,
+      "wape_test_pct_under_20": 6.9306930693069315
+    },
+    "other": {
+      "n": 56,
+      "mape_test_median": 56.851436123330146,
+      "smape_test_median": 118.76145826874492,
+      "wape_test_median": 82.46624683171795,
+      "wape_test_pct_under_20": 0.0
+    },
+    "seasonal": {
+      "n": 33,
+      "mape_test_median": 60.98575733586753,
+      "smape_test_median": 148.0617966409349,
+      "wape_test_median": 87.15696612627106,
+      "wape_test_pct_under_20": 0.0
+    },
+    "stable": {
+      "n": 1018,
+      "mape_test_median": 42.180700588990256,
+      "smape_test_median": 60.68688517015321,
+      "wape_test_median": 48.56223853936573,
+      "wape_test_pct_under_20": 3.045186640471513
+    },
+    "volatile": {
+      "n": 40,
+      "mape_test_median": 65.13978250689169,
+      "smape_test_median": 157.15311493632026,
+      "wape_test_median": 122.14917992135462,
+      "wape_test_pct_under_20": 0.0
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "config": {
+    "n_train": 1042,
+    "n_eval": 260,
+    "timesteps": 1000000,
+    "elapsed_min": 7.03
+  },
+  "eval": {
+    "n": 260,
+    "mean_recovery": 0.8170854397938112,
+    "median_recovery": 1.0314698000906486,
+    "completion_rate": 71.92307692307692,
+    "mean_burden": 0.17664893611293178,
+    "mean_burden_months": 9.96923076923077,
+    "mean_household_violation_months": 9.96923076923077,
+    "household_violation_zero_rate": 9.615384615384617,
+    "mean_reward": -14.360146797452801
+  },
+  "by_type": {
+    "decline": {
+      "n": 10,
+      "completion_rate": 100.0,
+      "mean_recovery": 1.089160832386122,
+      "mean_burden": 0.24619971912014157,
+      "mean_household_violation_months": 8.0
+    },
+    "growth": {
+      "n": 19,
+      "completion_rate": 26.31578947368421,
+      "mean_recovery": 0.41946701617145565,
+      "mean_burden": 0.07739473084367268,
+      "mean_household_violation_months": 6.315789473684211
+    },
+    "other": {
+      "n": 6,
+      "completion_rate": 100.0,
+      "mean_recovery": 1.1616029566721158,
+      "mean_burden": 0.24069869327287274,
+      "mean_household_violation_months": 10.333333333333334
+    },
+    "seasonal": {
+      "n": 6,
+      "completion_rate": 100.0,
+      "mean_recovery": 1.072460258007643,
+      "mean_burden": 0.23427712331388617,
+      "mean_household_violation_months": 9.0
+    },
+    "stable": {
+      "n": 212,
+      "completion_rate": 72.16981132075472,
+      "mean_recovery": 0.8129336164299191,
+      "mean_burden": 0.17687388116399708,
+      "mean_household_violation_months": 10.5
+    },
+    "volatile": {
+      "n": 7,
+      "completion_rate": 100.0,
+      "mean_recovery": 1.119203820578662,
+      "mean_burden": 0.23558694369187688,
+      "mean_household_violation_months": 7.142857142857143
+    }
+  }
+}

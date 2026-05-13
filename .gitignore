@@ -1,0 +1,19 @@
+.DS_Store
+**/.DS_Store
+temp.py
+*수행계획서*.pdf
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# 모델 / 대용량
+*.pkl
+*.zip
+*.ckpt
+
+# 환경변수
+.env

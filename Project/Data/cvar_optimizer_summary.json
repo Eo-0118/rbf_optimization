@@ -1,0 +1,70 @@
+{
+  "config": {
+    "n_scenarios": 200,
+    "alpha": 0.05,
+    "lambda": 1.0,
+    "r_range": [
+      0.03,
+      0.25
+    ],
+    "cap": 1.2,
+    "loan_multiplier": 3.0,
+    "noise_scale": 0.3
+  },
+  "n_total": 1302,
+  "n_success": 1302,
+  "n_failed": 0,
+  "r_star_stats": {
+    "mean": 0.0991945897875492,
+    "median": 0.13314149588709362,
+    "std": 0.052471176114799865,
+    "min": 0.030000000000004735,
+    "max": 0.209032520270889,
+    "p25": 0.030000000010125368,
+    "p75": 0.1449542356114572
+  },
+  "by_type": {
+    "decline": {
+      "n": 54,
+      "r_star_mean": 0.0606039561210178,
+      "r_star_median": 0.030000000002726613,
+      "cvar_mean": 257.4034282097809,
+      "expected_recovery_mean": 325.8485868429923
+    },
+    "growth": {
+      "n": 101,
+      "r_star_mean": 0.13232736674281123,
+      "r_star_median": 0.1456146201719791,
+      "cvar_mean": 875.8856941156786,
+      "expected_recovery_mean": 5210.077633308908
+    },
+    "other": {
+      "n": 56,
+      "r_star_mean": 0.0714006815290549,
+      "r_star_median": 0.03000000001585361,
+      "cvar_mean": 382.13609952065474,
+      "expected_recovery_mean": 718.0583380712269
+    },
+    "seasonal": {
+      "n": 33,
+      "r_star_mean": 0.055900782359770584,
+      "r_star_median": 0.030000000001858252,
+      "cvar_mean": 254.75344154954578,
+      "expected_recovery_mean": 416.01060427493087
+    },
+    "stable": {
+      "n": 1018,
+      "r_star_mean": 0.10222090156541554,
+      "r_star_median": 0.137761420585965,
+      "cvar_mean": 861.755289075423,
+      "expected_recovery_mean": 2269.04980009734
+    },
+    "volatile": {
+      "n": 40,
+      "r_star_mean": 0.06524091136844141,
+      "r_star_median": 0.030000000001610176,
+      "cvar_mean": 178.63888133071595,
+      "expected_recovery_mean": 355.773913693146
+    }
+  }
+}

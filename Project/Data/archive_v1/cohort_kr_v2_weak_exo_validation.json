@@ -1,0 +1,32 @@
+{
+  "version": "v2",
+  "method": "per-seller bootstrap",
+  "n_sellers": 1302,
+  "n_rows": 31248,
+  "n_months": 24,
+  "samples_per_donor": 2,
+  "n_donors": 651,
+  "pearson_r_vs_kosis": 0.8145266215192537,
+  "p_value": 1.2694351975113542e-06,
+  "type_distribution": {
+    "stable": 985,
+    "growth": 133,
+    "other": 63,
+    "decline": 47,
+    "volatile": 39,
+    "seasonal": 35
+  },
+  "rev_stats": {
+    "mean": 705.2841286214779,
+    "std": 903.4545018098765,
+    "min": 0.0,
+    "max": 12693.61005340526,
+    "p25": 198.44291897927314,
+    "p50": 475.34819943412225,
+    "p75": 873.7072890702914
+  },
+  "donor_pool_stats": {
+    "log_mean": 5.827467675453113,
+    "log_std": 1.2791930473251958
+  }
+}

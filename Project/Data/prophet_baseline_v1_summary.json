@@ -1,0 +1,69 @@
+{
+  "config": {
+    "n_samples_per_type": 50,
+    "train_months": 18,
+    "val_months": 3,
+    "test_months": 3,
+    "exogenous_vars": []
+  },
+  "overall": {
+    "n_total": 271,
+    "n_ok": 268,
+    "n_skipped": 3,
+    "mape_val_mean": 96.69523098320202,
+    "mape_val_median": 44.323201110689766,
+    "mape_test_mean": 134.48536784945628,
+    "mape_test_median": 44.85637410905111,
+    "mape_test_pct_under_20": 22.761194029850746
+  },
+  "by_type": {
+    "decline": {
+      "n": 47,
+      "mape_val_mean": 205.69963056170704,
+      "mape_val_median": 60.29883887198718,
+      "mape_test_mean": 213.0652912241186,
+      "mape_test_median": 79.32019915763401,
+      "mape_test_pct_under_20": 8.51063829787234
+    },
+    "growth": {
+      "n": 50,
+      "mape_val_mean": 25.971308363151998,
+      "mape_val_median": 21.625111357028224,
+      "mape_test_mean": 27.690234691323354,
+      "mape_test_median": 21.98610125614762,
+      "mape_test_pct_under_20": 44.0
+    },
+    "other": {
+      "n": 50,
+      "mape_val_mean": 73.6952333921175,
+      "mape_val_median": 51.47371245814503,
+      "mape_test_mean": 78.19764167949052,
+      "mape_test_median": 59.67876481446288,
+      "mape_test_pct_under_20": 20.0
+    },
+    "seasonal": {
+      "n": 35,
+      "mape_val_mean": 128.68227557690057,
+      "mape_val_median": 61.83596875485661,
+      "mape_test_mean": 198.56575210383704,
+      "mape_test_median": 62.968433527786274,
+      "mape_test_pct_under_20": 11.428571428571429
+    },
+    "stable": {
+      "n": 50,
+      "mape_val_mean": 52.15172908501932,
+      "mape_val_median": 31.796431417652094,
+      "mape_test_mean": 213.3264472881982,
+      "mape_test_median": 31.089775915343882,
+      "mape_test_pct_under_20": 40.0
+    },
+    "volatile": {
+      "n": 36,
+      "mape_val_mean": 126.1971360949294,
+      "mape_val_median": 98.81492695045806,
+      "mape_test_mean": 100.32687665846032,
+      "mape_test_median": 69.65454476837537,
+      "mape_test_pct_under_20": 2.7777777777777777
+    }
+  }
+}
