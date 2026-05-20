@@ -1,0 +1,41 @@
+{
+  "version": "v3",
+  "method": "per-seller bootstrap + 카테고리 통합",
+  "n_sellers": 1182,
+  "n_rows": 28368,
+  "n_donors": 591,
+  "samples_per_donor": 2,
+  "pearson_r_vs_kosis": 0.5479802668998371,
+  "p_value": 0.005569536692040978,
+  "type_distribution": {
+    "stable": 923,
+    "growth": 91,
+    "other": 68,
+    "decline": 36,
+    "volatile": 32,
+    "seasonal": 32
+  },
+  "kosis_category_distribution": {
+    "생활용품": 188,
+    "가구": 166,
+    "스포츠·레저용품": 150,
+    "화장품": 148,
+    "아동·유아용품": 94,
+    "컴퓨터 및 주변기기": 78,
+    "가방": 56,
+    "자동차 및 자동차용품": 52,
+    "가전·전자": 50,
+    "통신기기": 46,
+    "애완용품": 40,
+    "기타": 26,
+    "서적": 20,
+    "패션용품 및 액세서리": 20,
+    "사무·문구": 18,
+    "음·식료품": 10,
+    "의복": 8,
+    "신발": 6,
+    "농축수산물": 6
+  },
+  "ambiguous_donors_excluded": 60,
+  "donor_pool_size_before_filter": 651
+}

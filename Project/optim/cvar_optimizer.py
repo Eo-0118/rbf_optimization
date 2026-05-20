@@ -44,8 +44,8 @@ CAP = 1.2
 LOAN_MULTIPLIER = 3.0
 R_MIN = 0.03
 R_MAX = 0.25
-M_I = 0.25                              # env와 일관 (한국 자영업 마진 추정)
-L_PERSONAL_MIN = 172.0612               # 1,720,612원 = 172.0612 만원 (가계동향조사 2024)
+M_I = 0.10                              # v2: env와 일관 (스마트스토어 gross 20% - 운영비 10%, 부분 추정)
+L_PERSONAL_MIN = 128.21                 # v2: KB 1인가구 / 보건복지부 기준 중위소득 50% (검증)
 
 # CVaR 파라미터
 N_SCENARIOS = 200          # 셀러당 Monte Carlo 시나리오 수

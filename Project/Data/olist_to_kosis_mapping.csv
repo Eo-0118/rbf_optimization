@@ -1,0 +1,72 @@
+olist_category,kosis_category,status,confidence,note
+beleza_saude,화장품,OK,maybe,health 의약품 부분 손실
+informatica_acessorios,컴퓨터 및 주변기기,OK,sure,
+automotivo,자동차 및 자동차용품,OK,sure,
+cama_mesa_banho,생활용품,OK,sure,침구 명시
+moveis_decoracao,가구,OK,sure,
+esporte_lazer,스포츠·레저용품,OK,sure,
+perfumaria,화장품,OK,sure,향수 명시
+utilidades_domesticas,생활용품,OK,sure,
+telefonia,통신기기,OK,sure,
+relogios_presentes,패션용품 및 액세서리,OK,sure,시계 명시
+alimentos_bebidas,음·식료품,OK,sure,
+bebes,아동·유아용품,OK,sure,
+papelaria,사무·문구,OK,sure,
+tablets_impressao_imagem,컴퓨터 및 주변기기,OK,sure,프린터 명시
+brinquedos,아동·유아용품,OK,sure,인형·완구 명시
+telefonia_fixa,통신기기,OK,sure,유무선 전화기 명시
+ferramentas_jardim,,EXCLUDE,ambiguous,정원 도구 - KOSIS 적합 분류 없음
+fashion_bolsas_e_acessorios,가방,OK,maybe,가방+액세서리 혼합 가방 주력 가정
+eletroportateis,가전·전자,OK,sure,
+consoles_games,기타,OK,maybe,게임기 명시적 분류 없음
+audio,가전·전자,OK,sure,
+fashion_calcados,신발,OK,sure,
+cool_stuff,,EXCLUDE,ambiguous,정의 모호
+malas_acessorios,가방,OK,sure,여행용 명시
+climatizacao,가전·전자,OK,sure,
+construcao_ferramentas_construcao,,EXCLUDE,ambiguous,건축자재
+moveis_cozinha_area_de_servico_jantar_e_jardim,가구,OK,sure,
+construcao_ferramentas_jardim,,EXCLUDE,ambiguous,건축 정원 도구
+fashion_roupa_masculina,의복,OK,sure,남성복 명시
+pet_shop,애완용품,OK,sure,
+moveis_escritorio,가구,OK,sure,책상·의자 명시
+market_place,,EXCLUDE,ambiguous,정의 모호
+eletronicos,가전·전자,OK,sure,
+eletrodomesticos,가전·전자,OK,sure,
+artigos_de_festas,,EXCLUDE,ambiguous,파티용품
+casa_conforto,생활용품,OK,maybe,정확한 의미 불명
+construcao_ferramentas_ferramentas,,EXCLUDE,ambiguous,건축 도구
+agro_industria_e_comercio,농축수산물,OK,maybe,농산업
+moveis_colchao_e_estofado,가구,OK,sure,
+livros_tecnicos,서적,OK,sure,
+casa_construcao,,EXCLUDE,ambiguous,건축
+instrumentos_musicais,기타,OK,sure,악기 기타에 명시
+moveis_sala,가구,OK,sure,
+construcao_ferramentas_iluminacao,,EXCLUDE,ambiguous,조명 도구
+industria_comercio_e_negocios,,EXCLUDE,ambiguous,산업·상업
+alimentos,음·식료품,OK,maybe,가공식품 가정
+artes,기타,OK,maybe,골동품 가까움
+moveis_quarto,가구,OK,sure,
+livros_interesse_geral,서적,OK,sure,
+construcao_ferramentas_seguranca,,EXCLUDE,ambiguous,안전 도구
+fashion_underwear_e_moda_praia,의복,OK,sure,
+fashion_esporte,의복,OK,sure,스포츠웨어 의복에 명시
+sinalizacao_e_seguranca,,EXCLUDE,ambiguous,신호·보안
+pcs,컴퓨터 및 주변기기,OK,sure,PC·노트북 명시
+artigos_de_natal,,EXCLUDE,ambiguous,크리스마스 용품
+fashion_roupa_feminina,의복,OK,sure,여성복 명시
+eletrodomesticos_2,가전·전자,OK,sure,
+livros_importados,서적,OK,sure,
+bebidas,음·식료품,OK,sure,음료 명시
+cine_foto,가전·전자,OK,sure,디지털카메라 명시
+la_cuisine,생활용품,OK,sure,주방용품 명시
+musica,기타,OK,maybe,음반은 기타 / 디지털이면 조사 제외
+casa_conforto_2,생활용품,OK,maybe,
+portateis_casa_forno_e_cafe,가전·전자,OK,sure,
+cds_dvds_musicais,기타,OK,sure,음반·비디오 기타에 명시
+dvds_blu_ray,기타,OK,sure,
+flores,생활용품,OK,sure,꽃·화분 명시
+artes_e_artesanato,기타,OK,maybe,골동품 가까움
+fraldas_higiene,아동·유아용품,OK,sure,기저귀 명시
+fashion_roupa_infanto_juvenil,의복,OK,sure,아동·유아복 의복에 명시
+seguros_e_servicos,기타서비스,OK,maybe,보안 서비스 가정

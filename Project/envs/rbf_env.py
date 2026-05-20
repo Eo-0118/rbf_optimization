@@ -50,8 +50,8 @@ class RBFEnv(gym.Env):
         T: int = 24,
         cap: float = 1.2,
         loan_multiplier: float = 3.0,
-        m_i: float = 0.25,                # v1: 0.15 → 0.25 (한국 자영업 마진 추정)
-        L_personal_min: float = 172.0612, # v1 신규: 1,720,612원 = 172.0612 만원 (합성 데이터 만원 단위와 일관)
+        m_i: float = 0.10,                # v2: 0.25 → 0.10 (스마트스토어 gross 20% - 운영비 10% 추정)
+        L_personal_min: float = 128.21,   # v2: 172 → 128 (KB 1인가구 / 보건복지부 기준 중위소득 50%, 검증)
         r_min: float = 0.03,
         r_max: float = 0.25,
         alpha: float = 1.0,        # 회수율 보상

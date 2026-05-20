@@ -31,8 +31,8 @@
 ### Phase 3: RBF 시뮬레이션 + 정책 최적화
 - **Gymnasium 환경** (`envs/rbf_env.py`): State 13-dim, 연속 Action r_t ∈ [0.03, 0.25]
 - **2-Tier Burden 모델**: 사업 차원(영업이익) + 가계 차원(L_personal)
-  - L_personal_min = 1,720,612원 (통계청 「2024년 가계동향조사」 1인가구 평균 소비지출)
-  - m_i = 0.25 (한국 자영업 영업이익률 추정)
+  - L_personal_min = 1,282,100원 (KB 「2024 한국 1인가구 보고서」 / 보건복지부 중위소득 50% 기준)
+  - m_i = 0.10 (스마트스토어 평균 gross margin 20% - 운영비 10% 추정)
 - **CVaR 정적 최적화** (`optim/cvar_optimizer.py`): CVXPY로 셀러별 최적 r* 산출
 - **PPO 강화학습** (`agents/train_ppo.py`): StableBaselines3, MPS 가속
 
@@ -44,25 +44,32 @@
 
 ## 3. 핵심 결과
 
-### 3-정책 비교 (평가 셀러 260명)
+### 3-정책 비교 (m_i=0.10 / L_personal=128만 기준, PPO 평가 260명)
 
 | 정책 | Recovery | Completion | Burden | HH 안전 셀러 % | HH 침범 개월/24 |
 |---|---|---|---|---|---|
-| Fixed-0.15 | 1.000 | **80%** | 0.118 | 2.3% | 18.8 |
-| CVaR (정적) | 0.659 | 9% | **0.067** | 2.1% | 18.7 |
-| **PPO (RL)** | 0.807 | 70% | 0.174 | **9.6%** | **10.0** |
+| Fixed-0.15 | 1.000 | 80% | 0.145 | 0.0% | 20.7 |
+| CVaR (정적) | 0.279 | 0% | **0.037** | 0.0% | 18.7 |
+| **PPO (RL)** | 0.980 | **91%** | 0.228 | **2.7%** ✅ | **12.2** ✅ |
 
 ### PPO의 차별화된 학습 전략
 
-> **"침범 빈도 ↓ + 침범 시 강도 ↑"**
+> **"회수 성능 ↑ + 가계 침범 개월 ↓ 동시 달성"**
 
-- **가계 안전 셀러 비율 4.2배 향상** (2.3% → 9.6%)
-- **평균 가계 침범 개월 47% 감소** (18.8 → 10.0개월)
+- **Completion 91%** (Fixed 대비 +11%p, CVaR 대비 +91%p)
+- **평균 가계 침범 개월 41% 감소** (20.7 → 12.2개월)
+- **가계 안전 셀러 비율** 0% → 2.7% (Fixed/CVaR은 모두 침범 발생)
 - → 단일 r로 불가능한 **셀러별 차별화 정책** 학습 = RL의 핵심 가치
 
-### 민감도 분석 (35 가정 조합)
-- PPO의 가계 침범 개월 변동 폭 가장 작음 (3-4개월)
-- 모든 가정 조합에서 PPO 우위 일관 → **결과 robust**
+### 민감도 분석 (42 가정 조합: L_personal 7 × m_i 6)
+
+| 정책 | Completion % | HH 침범 개월 (변동 폭) |
+|---|---|---|
+| Fixed-0.15 | 81.5 ± 0.0 | 20.7 ± 0.7 |
+| CVaR | 0.0 ± 0.0 | 18.7 ± 3.7 |
+| **PPO** | **91.6 ± 0.5** | **12.5 ± 0.7** (가장 robust) |
+
+- 모든 조합에서 PPO 우위 일관 → **결과 robust**
 
 ---
 
@@ -157,7 +164,8 @@ python -m evaluation.sensitivity_analysis
 | **온라인쇼핑동향조사** | [KOSIS DT_1KE10051](https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1KE10051) (통계청) |
 | **쇼핑 검색 트렌드** | [네이버 데이터랩 OpenAPI](https://developers.naver.com/docs/serviceapi/datalab/shopping/shopping.md) |
 | **이커머스 거래** | [Olist Brazilian E-Commerce Public Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) (Kaggle) |
-| **1인가구 소비지출** | 통계청 「2024년 가계동향조사」 (1,720,612원) |
+| **1인가구 소비지출** | KB 「2024 한국 1인가구 보고서」 / 보건복지부 2024 기준 중위소득 50% (1,282,100원) |
+| **영업이익률 m_i** | 네이버 스마트스토어 가이드 (gross 20%) − 운영비 10% 추정 = 0.10 |
 
 ---
 

@@ -43,8 +43,11 @@ plt.rcParams["font.family"] = "AppleGothic"
 plt.rcParams["axes.unicode_minus"] = False
 
 SEED = 42
-L_PERSONAL_GRID = [86.03, 129.05, 150.0, 172.0612, 200.0, 230.0, 258.09]   # 기준값 ±50%
-M_I_GRID = [0.15, 0.20, 0.25, 0.30, 0.35]
+# v2 그리드 (기준값: m_i=0.10, L_personal=128.21)
+# L_personal ±50%: 64 ~ 192 만원 (KB 1인가구 128 중심)
+# m_i 0.05~0.20: 검증된 가정 영역 (도·소매 3.4% ~ gross margin 20%)
+L_PERSONAL_GRID = [64.0, 96.0, 112.0, 128.21, 144.0, 176.0, 192.0]
+M_I_GRID = [0.05, 0.075, 0.10, 0.125, 0.15, 0.20]
 
 
 def get_eval_sellers() -> list[str]:
@@ -240,9 +243,10 @@ def visualize_tornado(df: pd.DataFrame, output_path: Path):
         l_ranges = []
         m_ranges = []
         for pol in policies:
-            sub_l = df[(df["policy"] == pol) & (df["m_i"] == 0.25)]
+            # 기준값 (m_i=0.10, L_personal=128.21) 기준으로 다른 변수의 변동 폭 측정
+            sub_l = df[(df["policy"] == pol) & (df["m_i"] == 0.10)]
             l_ranges.append(sub_l[metric].max() - sub_l[metric].min())
-            sub_m = df[(df["policy"] == pol) & (np.isclose(df["L_personal"], 172.0612))]
+            sub_m = df[(df["policy"] == pol) & (np.isclose(df["L_personal"], 128.21))]
             m_ranges.append(sub_m[metric].max() - sub_m[metric].min())
         ax.bar(x - width/2, l_ranges, width, label="L_personal 변동 영향", color="steelblue", alpha=0.8)
         ax.bar(x + width/2, m_ranges, width, label="m_i 변동 영향", color="darkorange", alpha=0.8)
