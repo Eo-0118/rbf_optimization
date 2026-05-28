@@ -1,0 +1,163 @@
+{
+  "config": {
+    "cohort": "cohort_kr_v4 (카테고리별 Naver 매칭)",
+    "n_samples_per_type": 50,
+    "train_months": 18,
+    "val_months": 3,
+    "test_months": 3,
+    "exogenous_vars": [
+      "naver_index",
+      "promo"
+    ],
+    "post_process_clip_negative": true
+  },
+  "overall": {
+    "n_total": 250,
+    "n_ok": 249,
+    "mape_test_mean": 96.50408479837049,
+    "mape_test_median": 50.4464673869174,
+    "smape_test_mean": 93.86427767002506,
+    "smape_test_median": 93.6557401557894,
+    "wape_test_mean": 119.14061557228652,
+    "wape_test_median": 74.0243755924293,
+    "mape_test_pct_under_20": 17.670682730923694,
+    "smape_test_pct_under_20": 12.048192771084338,
+    "wape_test_pct_under_20": 12.851405622489958
+  },
+  "by_type": {
+    "decline": {
+      "n": 36,
+      "mape_test_median": 91.32649437083529,
+      "smape_test_median": 133.33333333333331,
+      "wape_test_median": 100.0,
+      "wape_test_pct_under_20": 2.7777777777777777
+    },
+    "growth": {
+      "n": 50,
+      "mape_test_median": 27.655697024078464,
+      "smape_test_median": 30.72203469891681,
+      "wape_test_median": 29.429322187256844,
+      "wape_test_pct_under_20": 32.0
+    },
+    "other": {
+      "n": 50,
+      "mape_test_median": 55.017588713919196,
+      "smape_test_median": 111.17694401535888,
+      "wape_test_median": 77.25687779010372,
+      "wape_test_pct_under_20": 4.0
+    },
+    "seasonal": {
+      "n": 32,
+      "mape_test_median": 74.16829797097506,
+      "smape_test_median": 140.0898750229362,
+      "wape_test_median": 100.0,
+      "wape_test_pct_under_20": 3.125
+    },
+    "stable": {
+      "n": 50,
+      "mape_test_median": 33.41122514204753,
+      "smape_test_median": 44.38315491441402,
+      "wape_test_median": 49.320072996099825,
+      "wape_test_pct_under_20": 24.0
+    },
+    "volatile": {
+      "n": 31,
+      "mape_test_median": 87.18425864121197,
+      "smape_test_median": 136.28801764410255,
+      "wape_test_median": 100.90580032770833,
+      "wape_test_pct_under_20": 0.0
+    }
+  },
+  "by_kosis_category": {
+    "가구": {
+      "n": 33,
+      "wape_test_median": 71.48737031050945,
+      "wape_test_pct_under_20": 9.090909090909092
+    },
+    "가방": {
+      "n": 9,
+      "wape_test_median": 68.73360460142861,
+      "wape_test_pct_under_20": 11.11111111111111
+    },
+    "가전·전자": {
+      "n": 8,
+      "wape_test_median": 76.5099428590191,
+      "wape_test_pct_under_20": 0.0
+    },
+    "기타": {
+      "n": 5,
+      "wape_test_median": 49.59051122515557,
+      "wape_test_pct_under_20": 0.0
+    },
+    "사무·문구": {
+      "n": 6,
+      "wape_test_median": 247.12656023839398,
+      "wape_test_pct_under_20": 16.666666666666664
+    },
+    "생활용품": {
+      "n": 43,
+      "wape_test_median": 82.95651308990115,
+      "wape_test_pct_under_20": 13.953488372093023
+    },
+    "서적": {
+      "n": 5,
+      "wape_test_median": 102.88313044994197,
+      "wape_test_pct_under_20": 20.0
+    },
+    "스포츠·레저용품": {
+      "n": 35,
+      "wape_test_median": 76.48858587503126,
+      "wape_test_pct_under_20": 14.285714285714285
+    },
+    "신발": {
+      "n": 3,
+      "wape_test_median": 64.90928437714705,
+      "wape_test_pct_under_20": 0.0
+    },
+    "아동·유아용품": {
+      "n": 10,
+      "wape_test_median": 83.9235264842037,
+      "wape_test_pct_under_20": 0.0
+    },
+    "애완용품": {
+      "n": 13,
+      "wape_test_median": 28.373219485300453,
+      "wape_test_pct_under_20": 30.76923076923077
+    },
+    "음·식료품": {
+      "n": 3,
+      "wape_test_median": 75.54719134425002,
+      "wape_test_pct_under_20": 0.0
+    },
+    "의복": {
+      "n": 4,
+      "wape_test_median": 66.06342117145668,
+      "wape_test_pct_under_20": 0.0
+    },
+    "자동차 및 자동차용품": {
+      "n": 16,
+      "wape_test_median": 74.9905063010127,
+      "wape_test_pct_under_20": 12.5
+    },
+    "컴퓨터 및 주변기기": {
+      "n": 17,
+      "wape_test_median": 72.03423809201392,
+      "wape_test_pct_under_20": 17.647058823529413
+    },
+    "통신기기": {
+      "n": 11,
+      "wape_test_median": 87.16444082124623,
+      "wape_test_pct_under_20": 0.0
+    },
+    "패션용품 및 액세서리": {
+      "n": 7,
+      "wape_test_median": 30.625021195729925,
+      "wape_test_pct_under_20": 28.57142857142857
+    },
+    "화장품": {
+      "n": 21,
+      "wape_test_median": 55.20609402940149,
+      "wape_test_pct_under_20": 19.047619047619047
+    }
+  }
+}

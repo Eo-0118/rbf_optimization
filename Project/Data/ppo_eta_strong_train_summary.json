@@ -1,0 +1,23 @@
+{
+  "config": {
+    "n_train": 1042,
+    "n_eval": 260,
+    "timesteps": 200000,
+    "elapsed_min": 0.77,
+    "eta": 5.0,
+    "reward_design": "eta_strong_5x"
+  },
+  "eval": {
+    "n": 260,
+    "mean_recovery": 0.9887925489068146,
+    "completion_rate": 92.3076923076923,
+    "mean_burden": 0.22881475732224482,
+    "mean_burden_months": 12.26923076923077,
+    "mean_household_violation_months": 12.26923076923077,
+    "household_violation_zero_rate": 2.6923076923076925,
+    "mean_violation_amount_total": 1907.6224021752719,
+    "mean_violation_ratio_max": 1.781163905542379,
+    "p95_violation_ratio_max": 3.779680561957979,
+    "mean_reward": -65.13772711005552
+  }
+}

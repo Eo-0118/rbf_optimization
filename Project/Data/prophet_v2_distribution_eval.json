@@ -1,0 +1,95 @@
+{
+  "by_horizon": {
+    "h+1": {
+      "n": 270,
+      "ape_median": 39.4116478580467,
+      "ape_under_20_pct": 19.62962962962963,
+      "coverage_pct": 61.48148148148148,
+      "sharpness_median": 353.09349480335095,
+      "sharpness_rel_median": 1.3166398425072403,
+      "pinball_avg_mean": 102.12916337504922
+    },
+    "h+2": {
+      "n": 270,
+      "ape_median": 42.166522152778285,
+      "ape_under_20_pct": 18.88888888888889,
+      "coverage_pct": 61.85185185185185,
+      "sharpness_median": 343.95270613947014,
+      "sharpness_rel_median": 1.5036705029013664,
+      "pinball_avg_mean": 101.8596863794082
+    },
+    "h+3": {
+      "n": 270,
+      "ape_median": 31.93746667103226,
+      "ape_under_20_pct": 25.925925925925924,
+      "coverage_pct": 61.85185185185185,
+      "sharpness_median": 337.1371433549124,
+      "sharpness_rel_median": 1.3213354105617872,
+      "pinball_avg_mean": 100.6193975561585
+    },
+    "h+4": {
+      "n": 270,
+      "ape_median": 34.41282775164249,
+      "ape_under_20_pct": 20.74074074074074,
+      "coverage_pct": 61.85185185185185,
+      "sharpness_median": 341.2931096905802,
+      "sharpness_rel_median": 1.4653608548769155,
+      "pinball_avg_mean": 93.32476408621727
+    },
+    "h+5": {
+      "n": 270,
+      "ape_median": 29.75949160586187,
+      "ape_under_20_pct": 27.037037037037038,
+      "coverage_pct": 57.03703703703704,
+      "sharpness_median": 335.4480086151763,
+      "sharpness_rel_median": 1.1140985999446205,
+      "pinball_avg_mean": 114.06089054281502
+    },
+    "h+6": {
+      "n": 270,
+      "ape_median": 34.92859784211056,
+      "ape_under_20_pct": 24.444444444444443,
+      "coverage_pct": 60.370370370370374,
+      "sharpness_median": 334.5753893483114,
+      "sharpness_rel_median": 1.0461807155630605,
+      "pinball_avg_mean": 105.59164617528724
+    }
+  },
+  "by_horizon_group": {
+    "short_t1_t3": {
+      "n": 810,
+      "ape_median": 39.19973995390417,
+      "ape_under_20_pct": 21.48148148148148,
+      "coverage_pct": 61.72839506172839,
+      "sharpness_median": 341.5335289956291,
+      "sharpness_rel_median": 1.3752709995577064,
+      "pinball_avg_mean": 101.53608243687198
+    },
+    "long_t4_t6": {
+      "n": 810,
+      "ape_median": 33.5831913574103,
+      "ape_under_20_pct": 24.074074074074073,
+      "coverage_pct": 59.75308641975309,
+      "sharpness_median": 334.8007589208836,
+      "sharpness_rel_median": 1.1561827160613196,
+      "pinball_avg_mean": 104.32576693477318
+    },
+    "all_t1_t6": {
+      "n": 1620,
+      "ape_median": 35.52925610594668,
+      "ape_under_20_pct": 22.77777777777778,
+      "coverage_pct": 60.74074074074074,
+      "sharpness_median": 338.46155413304984,
+      "sharpness_rel_median": 1.2965524877211627,
+      "pinball_avg_mean": 102.93092468582256
+    }
+  },
+  "overall": {
+    "n_total": 1620,
+    "interval_width_target": 0.8,
+    "actual_coverage": 60.74074074074074,
+    "coverage_gap_pct": -19.25925925925926,
+    "sharpness_median": 338.46155413304984,
+    "sharpness_rel_median": 1.2965524877211627
+  }
+}

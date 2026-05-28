@@ -1,0 +1,8 @@
+{
+  "ppo_train_completion": 92.7063339731286,
+  "ppo_test_completion": 91.15384615384615,
+  "completion_gap_pp": 1.5524878192824474,
+  "ppo_train_violation_amount": 1828.4166033543506,
+  "ppo_test_violation_amount": 1856.6108579762897,
+  "overfit_assessment": "robust"
+}

@@ -61,6 +61,9 @@ class RBFEnv(gym.Env):
         eta: float = 1.0,          # v1 신규: 가계 침범 페널티 (soft, 매월 누적)
         seed: Optional[int] = None,
         seller_ids: Optional[list[str]] = None,  # 특정 subset만 학습/평가
+        # Lv4 (Day 2): 분포 통합 옵션
+        use_forecast_state: bool = False,   # state에 lag-based 분포 추가 여부
+        forecast_lag: int = 6,              # 분포 계산용 lag 개월 수
     ):
         super().__init__()
         self.cohort_path = Path(cohort_path)
@@ -76,6 +79,8 @@ class RBFEnv(gym.Env):
         self.gamma = gamma
         self.delta = delta
         self.eta = eta                         # v1 신규: 가계 침범 페널티
+        self.use_forecast_state = use_forecast_state
+        self.forecast_lag = forecast_lag
 
         # 데이터 로드 (셀러 단위 dict로 캐시)
         self._load_cohort(seller_ids)
@@ -87,8 +92,11 @@ class RBFEnv(gym.Env):
         self.log_scale_std = float(log_scales.std() + 1e-8)
 
         # Spaces
-        # state dim: 1 (t/T) + 1 (recovery_progress) + 3 (recent rev) + N_TYPES + 1 (m_i) + 1 (log_scale_norm)
+        # 기본 state dim: 1 (t/T) + 1 (recovery_progress) + 3 (recent rev) + N_TYPES + 1 (m_i) + 1 (log_scale_norm)
+        # use_forecast_state=True 시: +3 (lag P10/P50/P90 norm)
         self.state_dim = 1 + 1 + 3 + N_TYPES + 1 + 1
+        if self.use_forecast_state:
+            self.state_dim += 3   # P10, P50, P90 (lag-based 분위수)
         self.observation_space = spaces.Box(
             low=-10.0, high=10.0, shape=(self.state_dim,), dtype=np.float32
         )
@@ -172,13 +180,28 @@ class RBFEnv(gym.Env):
         # log scale z-score
         log_scale_norm = (np.log1p(s["mean_rev"]) - self.log_scale_mean) / self.log_scale_std
 
-        state = np.concatenate([
+        base_state = np.concatenate([
             [t_norm, recovery_progress],
             recent_norm,
             type_oh,
             [m_i_n, log_scale_norm],
         ]).astype(np.float32)
-        return state
+
+        if self.use_forecast_state:
+            # Lv4 (Day 2): lag-based 분포 — 최근 forecast_lag 개월 매출의 P10/P50/P90 (mean_rev로 정규화)
+            # 매월 즉시 계산, 모델 학습 없음. 분포 통합 효과 측정용 baseline.
+            revs = self.current_seller["revenues"]
+            start = max(0, self.t - self.forecast_lag)
+            window = revs[start:self.t] if self.t > 0 else np.array([s["mean_rev"]])
+            if len(window) == 0:
+                window = np.array([s["mean_rev"]])
+            p10 = float(np.percentile(window, 10)) / scale
+            p50 = float(np.percentile(window, 50)) / scale
+            p90 = float(np.percentile(window, 90)) / scale
+            forecast_state = np.array([p10, p50, p90], dtype=np.float32)
+            return np.concatenate([base_state, forecast_state]).astype(np.float32)
+
+        return base_state
 
     def step(self, action: np.ndarray):
         # Action 처리 (clip, 단일 값 추출)
@@ -205,6 +228,10 @@ class RBFEnv(gym.Env):
         # 가계 침범 여부 — P_t > safe_rbf_cap이면 가계 생활비 영역 침투
         household_violated = (payment_t > safe_rbf_cap) and (revenue_t > 0)
         household_penalty = -self.eta if household_violated else 0.0
+
+        # A-2: 침해 액도 (정도 측정). 단순 binary 한계 보완.
+        household_violation_amount = max(0.0, payment_t - safe_rbf_cap) if revenue_t > 0 else 0.0
+        household_violation_ratio = household_violation_amount / max(self.L_personal_min, 1e-6)
 
         step_reward = self.alpha * recovery_inc - self.beta * burden + household_penalty
 
@@ -239,6 +266,8 @@ class RBFEnv(gym.Env):
             "operating_profit": operating_profit,
             "safe_rbf_cap": safe_rbf_cap,
             "household_violated": bool(household_violated),
+            "household_violation_amount": float(household_violation_amount),
+            "household_violation_ratio": float(household_violation_ratio),
             "household_penalty": household_penalty,
             "step_reward": step_reward,
             "terminal_bonus": terminal_bonus,

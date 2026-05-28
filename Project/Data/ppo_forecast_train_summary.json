@@ -1,0 +1,68 @@
+{
+  "config": {
+    "n_train": 1042,
+    "n_eval": 260,
+    "timesteps": 200000,
+    "elapsed_min": 1.09,
+    "use_forecast_state": true,
+    "forecast_lag": 6,
+    "state_dim": 16
+  },
+  "eval": {
+    "n": 260,
+    "mean_recovery": 0.9934198318918022,
+    "completion_rate": 92.3076923076923,
+    "mean_burden": 0.23004789514695628,
+    "mean_burden_months": 12.296153846153846,
+    "mean_household_violation_months": 12.296153846153846,
+    "household_violation_zero_rate": 2.6923076923076925,
+    "mean_violation_amount_total": 1937.220679027483,
+    "mean_violation_ratio_max": 1.8260650458702248,
+    "p95_violation_ratio_max": 3.9367653168583883,
+    "mean_reward": -16.06864619265739
+  },
+  "by_type": {
+    "decline": {
+      "n": 10,
+      "completion_rate": 100.0,
+      "mean_recovery": 1.089160832386122,
+      "mean_burden": 0.24957952605629216,
+      "mean_violation_amount_total": 626.5877271709442
+    },
+    "growth": {
+      "n": 19,
+      "completion_rate": 78.94736842105263,
+      "mean_recovery": 0.8733094417631657,
+      "mean_burden": 0.18988934029164914,
+      "mean_violation_amount_total": 2694.701398914677
+    },
+    "other": {
+      "n": 6,
+      "completion_rate": 100.0,
+      "mean_recovery": 1.1616029566721158,
+      "mean_burden": 0.24958276571724058,
+      "mean_violation_amount_total": 1027.681363433202
+    },
+    "seasonal": {
+      "n": 6,
+      "completion_rate": 100.0,
+      "mean_recovery": 1.072460258007643,
+      "mean_burden": 0.24990919393663122,
+      "mean_violation_amount_total": 1010.0583566125233
+    },
+    "stable": {
+      "n": 212,
+      "completion_rate": 92.45283018867924,
+      "mean_recovery": 0.9885182195395189,
+      "mean_burden": 0.230988992016341,
+      "mean_violation_amount_total": 2023.4798877360276
+    },
+    "volatile": {
+      "n": 7,
+      "completion_rate": 100.0,
+      "mean_recovery": 1.119203820578662,
+      "mean_burden": 0.24887742095955132,
+      "mean_violation_amount_total": 715.4283108207158
+    }
+  }
+}

@@ -17,3 +17,11 @@ venv/
 
 # 환경변수
 .env
+
+# 검증 자료 (보고서 출처용 PDF/XLSX, 저작권 보호)
+자료/
+
+# PPO 학습 중간 로그 (모델은 *.zip으로 이미 제외)
+Project/models/ppo*/best/
+Project/models/ppo*/eval_logs/
+Project/models/ppo*/monitor.csv

@@ -1,0 +1,53 @@
+{
+  "version": "v5",
+  "method": "per-seller bootstrap + 카테고리 통합 + Naver generative 강화",
+  "config": {
+    "n_sellers": 1182,
+    "n_rows": 28368,
+    "n_donors": 591,
+    "samples_per_donor": 2,
+    "naver_beta": 0.4,
+    "naver_beta_range_pct": 20.0
+  },
+  "kosis_validation": {
+    "pearson_r": 0.04050929402329021,
+    "p_value": 0.850926296347565
+  },
+  "naver_validation": {
+    "seller_corr_mean": 0.22730715294259016,
+    "seller_corr_median": 0.256668406833951,
+    "abs_r_gt_02_pct": 64.8881239242685,
+    "abs_r_gt_03_pct": 48.62306368330464,
+    "target_kosis_measured": 0.226,
+    "v3_v4_baseline": 0.03
+  },
+  "type_distribution": {
+    "stable": 961,
+    "other": 56,
+    "decline": 50,
+    "growth": 50,
+    "seasonal": 33,
+    "volatile": 32
+  },
+  "kosis_category_distribution": {
+    "생활용품": 188,
+    "가구": 166,
+    "스포츠·레저용품": 150,
+    "화장품": 148,
+    "아동·유아용품": 94,
+    "컴퓨터 및 주변기기": 78,
+    "가방": 56,
+    "자동차 및 자동차용품": 52,
+    "가전·전자": 50,
+    "통신기기": 46,
+    "애완용품": 40,
+    "기타": 26,
+    "서적": 20,
+    "패션용품 및 액세서리": 20,
+    "사무·문구": 18,
+    "음·식료품": 10,
+    "의복": 8,
+    "신발": 6,
+    "농축수산물": 6
+  }
+}

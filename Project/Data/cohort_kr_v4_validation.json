@@ -1,0 +1,11 @@
+{
+  "source": "cohort_kr_v3 + naver_monthly per-category normalize",
+  "n_rows": 28368,
+  "n_sellers": 1182,
+  "n_kosis_categories": 19,
+  "mapping_explicit": 15,
+  "mapping_average_fallback": 4,
+  "naver_index_intra_month_std_mean": 0.06617144616607028,
+  "naver_index_min": 0.0,
+  "naver_index_max": 0.9999999999891546
+}
