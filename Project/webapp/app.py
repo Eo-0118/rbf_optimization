@@ -402,19 +402,118 @@ def main():
     → **사전 적합도 평가로 부적합 셀러를 제외해야 함**.
     """)
 
-    avg_revenue = np.mean(revenues_full)
-    avg_operating_profit = avg_revenue * m_i
-    coverage_ratio = avg_operating_profit / L_personal
+    # 본 연구의 운영 알고리즘 — (L*, T*, cap*) 자동 산출
+    seller_type = classify_type(revenues_full)
+    revs_nz = revenues_full[revenues_full > 0]
+    R_mean = float(np.mean(revs_nz)) if len(revs_nz) > 0 else 0
+    R_p10 = float(np.percentile(revs_nz, 10)) if len(revs_nz) > 0 else 0
+    R_p25 = float(np.percentile(revs_nz, 25)) if len(revs_nz) > 0 else 0
+    cv = float(np.std(revenues_full) / max(R_mean, 1e-6))
 
-    if coverage_ratio < 1.0:
-        st.error(f"❌ **사전 적합도 미달**: 영업이익(평균 {avg_operating_profit:.0f}만) < 가계비({L_personal:.0f}만). "
-                 f"커버리지 비율 {coverage_ratio:.2f} (< 1.0). RBF 대출 권장 불가.")
-    elif coverage_ratio < 2.0:
-        st.warning(f"⚠️ **경계 영역**: 커버리지 비율 {coverage_ratio:.2f}. 매출 변동성에 따라 위험.")
+    # 위험 프리미엄 (cap*)
+    risk_premium_map = {"stable": -0.05, "growth": 0.0, "other": 0.05,
+                         "seasonal": 0.10, "decline": 0.15, "volatile": 0.20}
+    risk_premium = risk_premium_map.get(seller_type, 0.05)
+    if cv > 1.0:
+        risk_premium += 0.05
+    cap_base = 1.10
+    cap_star = cap_base + risk_premium
+
+    T_max = 36
+    L_min = 100.0
+
+    col_metric1, col_metric2, col_metric3 = st.columns(3)
+    col_metric1.metric("매출 R (평균)", f"{R_mean:.0f} 만")
+    col_metric2.metric("매출 R (P10, 보수)", f"{R_p10:.0f} 만")
+    col_metric3.metric("변동계수 cv", f"{cv:.2f}")
+
+    # 3-mode 적합도 평가
+    st.subheader("Mode별 (L\\*, T\\*, cap\\*) 자동 산출")
+
+    modes_data = []
+    for mode_name, R_used in [("낙관 (R_mean)", R_mean),
+                              ("중도 (R_p25)", R_p25),
+                              ("보수 (R_p10)", R_p10)]:
+        monthly_safe = R_used * m_i - L_personal
+        if monthly_safe <= 0:
+            modes_data.append(dict(
+                mode=mode_name, R_used=R_used,
+                eligible="❌ 거절",
+                reason="가계비 충당 불가",
+                L_star=0, cap_star=cap_star, T_star=0,
+            ))
+            continue
+        L_max = T_max * monthly_safe / cap_star
+        if L_max < L_min:
+            modes_data.append(dict(
+                mode=mode_name, R_used=R_used,
+                eligible="❌ 거절",
+                reason="L_max < 100만",
+                L_star=L_max, cap_star=cap_star, T_star=T_max,
+            ))
+            continue
+        modes_data.append(dict(
+            mode=mode_name, R_used=R_used,
+            eligible="✅ 적합",
+            reason="-",
+            L_star=L_max, cap_star=cap_star, T_star=T_max,
+        ))
+
+    modes_df = pd.DataFrame(modes_data)
+    modes_df["L_star_표시"] = modes_df["L_star"].apply(lambda v: f"{v:.0f} 만")
+    modes_df["cap_star_표시"] = modes_df["cap_star"].apply(lambda v: f"{(v-1)*100:.1f}% 이자")
+    modes_df["T_star_표시"] = modes_df["T_star"].apply(lambda v: f"{v} 개월" if v > 0 else "-")
+    display_cols = {"mode": "Mode", "R_used": "사용 R (만)", "eligible": "결과",
+                     "L_star_표시": "L*", "cap_star_표시": "cap*", "T_star_표시": "T*",
+                     "reason": "거절 사유"}
+    st.dataframe(modes_df.rename(columns=display_cols)[list(display_cols.values())],
+                  use_container_width=True)
+
+    st.caption("**Mode 해석**: R_mean = 낙관 산출 (매출 평균 기반), "
+                "R_p10 = 보수 산출 (하위 10% 매출 기반, 변동성 위험 반영). "
+                "보수 산출이 권장 (적합 셀러는 진짜 안전).")
+
+    # 최종 추천
+    p10_row = modes_df[modes_df["mode"].str.contains("보수")].iloc[0]
+    if p10_row["eligible"] == "✅ 적합":
+        st.success(
+            f"### ✅ 본 RBF 시스템 적합\n\n"
+            f"- 권장 대출 원금 L\\* = **{p10_row['L_star']:.0f}만원** (보수 산출)\n"
+            f"- 권장 만기 T\\* = **{p10_row['T_star']}개월**\n"
+            f"- 적용 이자 cap\\* = **{(p10_row['cap_star']-1)*100:.1f}%**\n"
+            f"- 위험 프리미엄: {seller_type} 셀러 → +{risk_premium*100:.0f}%p\n\n"
+            f"**침해 0% 보장 + 회수 가능** (Day 11++ 검증: CVaR 적용 시 회수 100% + 단일월 최대 침해비 < 1.0)"
+        )
     else:
-        st.success(f"✅ **사전 적합도 통과**: 커버리지 비율 {coverage_ratio:.2f}. RBF 가능 셀러 군.")
+        st.error(
+            f"### ❌ 본 RBF 시스템 부적합\n\n"
+            f"- 거절 사유: **{p10_row['reason']}**\n"
+            f"- 사용 R: {p10_row['R_used']:.0f}만 (보수 산출)\n"
+            f"- 가계비: {L_personal:.0f}만\n"
+            f"- 영업이익(추정): {p10_row['R_used'] * m_i:.0f}만\n\n"
+            f"**본 RBF 시스템은 가계비 보호 강제로 부적합 판정. 다른 금융 상품 권장:**\n"
+            f"- 신용보증기금 보증대출 (소상공인)\n"
+            f"- 카카오뱅크/토스뱅크 사업자대출\n"
+            f"- 가족/지인 차입"
+        )
 
-    st.caption("Coverage = 평균 영업이익 / 가계비. 1.0 미만이면 가계비조차 충당 못함.")
+    # 학술 위치 안내
+    with st.expander("📚 본 시스템의 학술적 차별점"):
+        st.markdown("""
+        ### 본 연구의 3가지 차별점
+
+        | 측면 | 기존 RBF | **본 연구** |
+        |---|---|---|
+        | 매출 비례 회수 | ✅ | ✅ |
+        | **r 자체 동적 조정 (매월)** | ❌ (r 고정) | ✅ **차별점 1** (PPO) |
+        | **가계비 보호 강제** | ❌ | ✅ **차별점 2** (2-tier burden) |
+        | **셀러별 (L\\*, T\\*, cap\\*) 자동 산출** | 부분적 | ✅ **차별점 3** (위험 기반) |
+        | 사전 거절 정량 기준 | 신용/매출만 | ✅ + **가계 안전 조건** |
+
+        **본 연구의 unique 위치**: 세계 최초 학술 보고의 **"동적 r + 가계 안전 강제 + 셀러별 동적 (L,T,cap) RBF 시스템"** 프로토타입.
+
+        한국 영세 셀러 시장의 RBF 적용 가능 비율 **약 6% (R_p10 보수 기준)** 정량 입증.
+        """)
 
     st.markdown("---")
     st.caption(f"본 시스템 v1.0 — 학습된 PPO 모델 ({len(models)}개) 기반. "

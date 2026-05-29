@@ -67,6 +67,8 @@ class RBFEnv(gym.Env):
         # Lv4 (Day 8): 침해 강도 본질 개선
         eta_proportional: bool = False,     # X1: η × violation_ratio (binary → 비례)
         r_clip_to_safe: bool = False,       # X2: r_t × R > safe_cap이면 r_t 자동 clipping
+        # Day 12 (PPO v2): state에 (L, cap, T) 정보 추가 — 학습-평가 환경 일반화
+        use_lct_state: bool = False,
     ):
         super().__init__()
         self.cohort_path = Path(cohort_path)
@@ -84,6 +86,7 @@ class RBFEnv(gym.Env):
         self.eta = eta                         # v1 신규: 가계 침범 페널티
         self.eta_proportional = eta_proportional   # X1
         self.r_clip_to_safe = r_clip_to_safe       # X2
+        self.use_lct_state = use_lct_state         # Day 12 (PPO v2)
         self.use_forecast_state = use_forecast_state
         self.forecast_lag = forecast_lag
 
@@ -99,9 +102,19 @@ class RBFEnv(gym.Env):
         # Spaces
         # 기본 state dim: 1 (t/T) + 1 (recovery_progress) + 3 (recent rev) + N_TYPES + 1 (m_i) + 1 (log_scale_norm)
         # use_forecast_state=True 시: +3 (lag P10/P50/P90 norm)
+        # use_lct_state=True 시: +3 (L_norm, cap_norm, T_norm)
         self.state_dim = 1 + 1 + 3 + N_TYPES + 1 + 1
         if self.use_forecast_state:
             self.state_dim += 3   # P10, P50, P90 (lag-based 분위수)
+        if self.use_lct_state:
+            self.state_dim += 3   # L_norm, cap_norm, T_norm
+
+        # Day 12: L 정규화용 통계 (loan_multiplier × mean_rev 분포 기반)
+        # L_typical = loan_multiplier × mean_rev → log(L) 정규화
+        log_L_typicals = np.array([np.log1p(self.loan_multiplier * s["mean_rev"])
+                                     for s in self.sellers.values()])
+        self.log_L_mean = float(log_L_typicals.mean())
+        self.log_L_std = float(log_L_typicals.std() + 1e-8)
         self.observation_space = spaces.Box(
             low=-10.0, high=10.0, shape=(self.state_dim,), dtype=np.float32
         )
@@ -211,9 +224,10 @@ class RBFEnv(gym.Env):
             [m_i_n, log_scale_norm],
         ]).astype(np.float32)
 
+        extras = [base_state]
+
         if self.use_forecast_state:
             # Lv4 (Day 2): lag-based 분포 — 최근 forecast_lag 개월 매출의 P10/P50/P90 (mean_rev로 정규화)
-            # 매월 즉시 계산, 모델 학습 없음. 분포 통합 효과 측정용 baseline.
             revs = self.current_seller["revenues"]
             start = max(0, self.t - self.forecast_lag)
             window = revs[start:self.t] if self.t > 0 else np.array([s["mean_rev"]])
@@ -222,10 +236,21 @@ class RBFEnv(gym.Env):
             p10 = float(np.percentile(window, 10)) / scale
             p50 = float(np.percentile(window, 50)) / scale
             p90 = float(np.percentile(window, 90)) / scale
-            forecast_state = np.array([p10, p50, p90], dtype=np.float32)
-            return np.concatenate([base_state, forecast_state]).astype(np.float32)
+            extras.append(np.array([p10, p50, p90], dtype=np.float32))
 
-        return base_state
+        if self.use_lct_state:
+            # Day 12 (PPO v2): L, cap, T 정보 — 학습-평가 환경 일반화 핵심
+            current_L = getattr(self, "L", self.loan_multiplier * s["mean_rev"])
+            current_cap = getattr(self, "episode_cap", self.cap)
+            current_T = getattr(self, "episode_T", self.T)
+            L_norm = (np.log1p(current_L) - self.log_L_mean) / self.log_L_std
+            cap_norm = (current_cap - 1.0) / 0.3   # cap [1.0, 1.3] → [0, 1]
+            T_norm = current_T / 36.0               # T_max=36 기준
+            extras.append(np.array([L_norm, cap_norm, T_norm], dtype=np.float32))
+
+        if len(extras) == 1:
+            return base_state
+        return np.concatenate(extras).astype(np.float32)
 
     def step(self, action: np.ndarray):
         # Action 처리 (clip, 단일 값 추출)

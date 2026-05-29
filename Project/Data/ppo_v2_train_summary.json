@@ -1,0 +1,34 @@
+{
+  "config": {
+    "n_train": 1042,
+    "n_eval": 260,
+    "timesteps": 300000,
+    "elapsed_min": 1.17,
+    "eta": 3.0,
+    "eta_proportional": true,
+    "gamma": 0.95,
+    "use_lct_state": true,
+    "multi_condition": true,
+    "L_multiplier_range": [
+      1.5,
+      3.5
+    ],
+    "cap_range": [
+      1.0,
+      1.3
+    ],
+    "reward_design": "PPO_v2_multi_condition_state_ext"
+  },
+  "eval": {
+    "n": 260,
+    "mean_recovery": 0.20166139010889994,
+    "completion_rate": 0.0,
+    "mean_burden": 0.027679199295110857,
+    "mean_household_violation_months": 18.976923076923075,
+    "household_violation_zero_rate": 2.6923076923076925,
+    "mean_violation_amount_total": 319.6435311589414,
+    "mean_violation_ratio_max": 0.2045195582933207,
+    "p95_violation_ratio_max": 0.2986255497776863,
+    "mean_reward": -16.361692351056767
+  }
+}

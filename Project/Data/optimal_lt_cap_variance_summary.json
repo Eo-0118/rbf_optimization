@@ -1,0 +1,73 @@
+{
+  "config": {
+    "m_i": 0.1,
+    "L_personal": 128.21,
+    "T_max": 36,
+    "cap_base": 1.1,
+    "variance_correction": "R_p10 (하위 10% 매출 기반 보수적 산출)"
+  },
+  "metric_comparison": {
+    "R_mean": {
+      "n_eligible": 168,
+      "rejection_rate": 87.09677419354838
+    },
+    "R_p25": {
+      "n_eligible": 108,
+      "rejection_rate": 91.70506912442397
+    },
+    "R_p10": {
+      "n_eligible": 81,
+      "rejection_rate": 93.77880184331798
+    }
+  },
+  "p10_policy_compare": [
+    {
+      "policy": "Fixed-0.15",
+      "n": 81,
+      "completion_rate": 100.0,
+      "mean_burden": 0.10007821967283788,
+      "mean_violation_months": 6.617283950617284,
+      "household_safe_rate": 0.0,
+      "mean_violation_amount": 2023.3469612602537,
+      "mean_violation_ratio_max": 2.5865991024801844,
+      "p95_violation_ratio_max": 4.225387292449829,
+      "max_violation_ratio_max": 6.072784254959851
+    },
+    {
+      "policy": "CVaR",
+      "n": 81,
+      "completion_rate": 100.0,
+      "mean_burden": 0.050073705490570546,
+      "mean_violation_months": 9.493827160493828,
+      "household_safe_rate": 0.0,
+      "mean_violation_amount": 1210.8316443859605,
+      "mean_violation_ratio_max": 0.9901646432329579,
+      "p95_violation_ratio_max": 1.0213889937865366,
+      "max_violation_ratio_max": 1.0601743463241389
+    },
+    {
+      "policy": "PPO_base",
+      "n": 81,
+      "completion_rate": 50.617283950617285,
+      "mean_burden": 0.06458961388717487,
+      "mean_violation_months": 1.7654320987654322,
+      "household_safe_rate": 30.864197530864196,
+      "mean_violation_amount": 306.0561679629954,
+      "mean_violation_ratio_max": 1.6123543683142827,
+      "p95_violation_ratio_max": 4.148259531176877,
+      "max_violation_ratio_max": 5.804434428562027
+    },
+    {
+      "policy": "PPO_x1_only",
+      "n": 81,
+      "completion_rate": 44.44444444444444,
+      "mean_burden": 0.007827570806884432,
+      "mean_violation_months": 2.308641975308642,
+      "household_safe_rate": 33.33333333333333,
+      "mean_violation_amount": 37.55216984430302,
+      "mean_violation_ratio_max": 0.12790889439619577,
+      "p95_violation_ratio_max": 0.29518349917550407,
+      "max_violation_ratio_max": 0.2986221478806672
+    }
+  ]
+}

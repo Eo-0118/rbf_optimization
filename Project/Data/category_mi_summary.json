@@ -1,0 +1,253 @@
+{
+  "config": {
+    "default_m_i": 0.1,
+    "category_m_i_map": {
+      "화장품": 0.2,
+      "패션용품 및 액세서리": 0.15,
+      "의복": 0.15,
+      "아동·유아용품": 0.15,
+      "가방": 0.12,
+      "신발": 0.12,
+      "스포츠·레저용품": 0.12,
+      "애완용품": 0.12,
+      "생활용품": 0.1,
+      "가구": 0.1,
+      "음·식료품": 0.1,
+      "사무·문구": 0.1,
+      "자동차 및 자동차용품": 0.08,
+      "컴퓨터 및 주변기기": 0.06,
+      "가전·전자": 0.05,
+      "통신기기": 0.05,
+      "농축수산물": 0.05,
+      "서적": 0.03,
+      "기타": 0.1
+    },
+    "L_personal": 128.21,
+    "T_max": 36,
+    "cap_base": 1.1,
+    "R_used": "R_p10 (보수 산출)",
+    "m_i_disclaimer": "스마트스토어 가이드 + 일반 마진 추정. 공식 통계 부재."
+  },
+  "results": {
+    "uniform": {
+      "n_eligible": 71,
+      "rejection_pct": 93.9932318104907
+    },
+    "category": {
+      "n_eligible": 95,
+      "rejection_pct": 91.96277495769881
+    },
+    "delta_pct": 2.030456852791878
+  },
+  "by_category": [
+    {
+      "kosis_category": "화장품",
+      "n": 148,
+      "m_i_used": 0.2,
+      "uniform_eligible": 12,
+      "category_eligible": 31,
+      "R_mean_avg": 877.8239841292047,
+      "uniform_pct": 8.1,
+      "category_pct": 20.9,
+      "pct_delta": 12.799999999999999
+    },
+    {
+      "kosis_category": "스포츠·레저용품",
+      "n": 150,
+      "m_i_used": 0.12,
+      "uniform_eligible": 8,
+      "category_eligible": 11,
+      "R_mean_avg": 701.3844229666807,
+      "uniform_pct": 5.3,
+      "category_pct": 7.3,
+      "pct_delta": 2.0
+    },
+    {
+      "kosis_category": "생활용품",
+      "n": 188,
+      "m_i_used": 0.1,
+      "uniform_eligible": 10,
+      "category_eligible": 10,
+      "R_mean_avg": 765.2255792424265,
+      "uniform_pct": 5.3,
+      "category_pct": 5.3,
+      "pct_delta": 0.0
+    },
+    {
+      "kosis_category": "패션용품 및 액세서리",
+      "n": 20,
+      "m_i_used": 0.15,
+      "uniform_eligible": 8,
+      "category_eligible": 10,
+      "R_mean_avg": 2455.9000665058984,
+      "uniform_pct": 40.0,
+      "category_pct": 50.0,
+      "pct_delta": 10.0
+    },
+    {
+      "kosis_category": "아동·유아용품",
+      "n": 94,
+      "m_i_used": 0.15,
+      "uniform_eligible": 3,
+      "category_eligible": 10,
+      "R_mean_avg": 721.6109643846165,
+      "uniform_pct": 3.2,
+      "category_pct": 10.6,
+      "pct_delta": 7.3999999999999995
+    },
+    {
+      "kosis_category": "가구",
+      "n": 166,
+      "m_i_used": 0.1,
+      "uniform_eligible": 10,
+      "category_eligible": 10,
+      "R_mean_avg": 746.5722681099188,
+      "uniform_pct": 6.0,
+      "category_pct": 6.0,
+      "pct_delta": 0.0
+    },
+    {
+      "kosis_category": "기타",
+      "n": 26,
+      "m_i_used": 0.1,
+      "uniform_eligible": 4,
+      "category_eligible": 4,
+      "R_mean_avg": 1009.2380141840415,
+      "uniform_pct": 15.4,
+      "category_pct": 15.4,
+      "pct_delta": 0.0
+    },
+    {
+      "kosis_category": "사무·문구",
+      "n": 18,
+      "m_i_used": 0.1,
+      "uniform_eligible": 3,
+      "category_eligible": 3,
+      "R_mean_avg": 865.5619144912918,
+      "uniform_pct": 16.7,
+      "category_pct": 16.7,
+      "pct_delta": 0.0
+    },
+    {
+      "kosis_category": "가방",
+      "n": 56,
+      "m_i_used": 0.12,
+      "uniform_eligible": 3,
+      "category_eligible": 3,
+      "R_mean_avg": 633.7072665008666,
+      "uniform_pct": 5.4,
+      "category_pct": 5.4,
+      "pct_delta": 0.0
+    },
+    {
+      "kosis_category": "자동차 및 자동차용품",
+      "n": 52,
+      "m_i_used": 0.08,
+      "uniform_eligible": 2,
+      "category_eligible": 2,
+      "R_mean_avg": 715.6190239136122,
+      "uniform_pct": 3.8,
+      "category_pct": 3.8,
+      "pct_delta": 0.0
+    },
+    {
+      "kosis_category": "컴퓨터 및 주변기기",
+      "n": 78,
+      "m_i_used": 0.06,
+      "uniform_eligible": 4,
+      "category_eligible": 1,
+      "R_mean_avg": 845.6674235505585,
+      "uniform_pct": 5.1,
+      "category_pct": 1.3,
+      "pct_delta": -3.8
+    },
+    {
+      "kosis_category": "서적",
+      "n": 20,
+      "m_i_used": 0.03,
+      "uniform_eligible": 0,
+      "category_eligible": 0,
+      "R_mean_avg": 307.2404702035207,
+      "uniform_pct": 0.0,
+      "category_pct": 0.0,
+      "pct_delta": 0.0
+    },
+    {
+      "kosis_category": "농축수산물",
+      "n": 6,
+      "m_i_used": 0.05,
+      "uniform_eligible": 1,
+      "category_eligible": 0,
+      "R_mean_avg": 1114.9227356021322,
+      "uniform_pct": 16.7,
+      "category_pct": 0.0,
+      "pct_delta": -16.7
+    },
+    {
+      "kosis_category": "애완용품",
+      "n": 40,
+      "m_i_used": 0.12,
+      "uniform_eligible": 0,
+      "category_eligible": 0,
+      "R_mean_avg": 527.7900505651376,
+      "uniform_pct": 0.0,
+      "category_pct": 0.0,
+      "pct_delta": 0.0
+    },
+    {
+      "kosis_category": "음·식료품",
+      "n": 10,
+      "m_i_used": 0.1,
+      "uniform_eligible": 0,
+      "category_eligible": 0,
+      "R_mean_avg": 339.0078142981036,
+      "uniform_pct": 0.0,
+      "category_pct": 0.0,
+      "pct_delta": 0.0
+    },
+    {
+      "kosis_category": "의복",
+      "n": 8,
+      "m_i_used": 0.15,
+      "uniform_eligible": 0,
+      "category_eligible": 0,
+      "R_mean_avg": 522.3807504910702,
+      "uniform_pct": 0.0,
+      "category_pct": 0.0,
+      "pct_delta": 0.0
+    },
+    {
+      "kosis_category": "통신기기",
+      "n": 46,
+      "m_i_used": 0.05,
+      "uniform_eligible": 1,
+      "category_eligible": 0,
+      "R_mean_avg": 780.9297051987577,
+      "uniform_pct": 2.2,
+      "category_pct": 0.0,
+      "pct_delta": -2.2
+    },
+    {
+      "kosis_category": "가전·전자",
+      "n": 50,
+      "m_i_used": 0.05,
+      "uniform_eligible": 2,
+      "category_eligible": 0,
+      "R_mean_avg": 572.9522848981567,
+      "uniform_pct": 4.0,
+      "category_pct": 0.0,
+      "pct_delta": -4.0
+    },
+    {
+      "kosis_category": "신발",
+      "n": 6,
+      "m_i_used": 0.12,
+      "uniform_eligible": 0,
+      "category_eligible": 0,
+      "R_mean_avg": 457.60778080001336,
+      "uniform_pct": 0.0,
+      "category_pct": 0.0,
+      "pct_delta": 0.0
+    }
+  ]
+}

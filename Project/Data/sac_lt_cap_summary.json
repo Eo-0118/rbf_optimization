@@ -1,0 +1,26 @@
+{
+  "p10": {
+    "policy": "SAC",
+    "subset": "R_p10",
+    "n": 81,
+    "completion_rate": 97.53086419753086,
+    "mean_burden": 0.1726058655626166,
+    "household_safe_rate": 1.2345679012345678,
+    "mean_violation_amount": 2323.735060874431,
+    "mean_violation_ratio_max": 4.496115379870102,
+    "p95_violation_ratio_max": 7.714505707630798,
+    "max_violation_ratio_max": 8.822939458028412
+  },
+  "mean": {
+    "policy": "SAC",
+    "subset": "R_mean",
+    "n": 160,
+    "completion_rate": 91.25,
+    "mean_burden": 0.17970333084537024,
+    "household_safe_rate": 6.875000000000001,
+    "mean_violation_amount": 2271.011347137473,
+    "mean_violation_ratio_max": 3.5416241912282773,
+    "p95_violation_ratio_max": 6.6252759102177095,
+    "max_violation_ratio_max": 13.200649523753343
+  }
+}

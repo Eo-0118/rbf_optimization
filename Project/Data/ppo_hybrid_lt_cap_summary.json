@@ -1,0 +1,26 @@
+{
+  "p10": {
+    "policy": "PPO_cvar_hybrid",
+    "subset": "R_p10",
+    "n": 81,
+    "completion_rate": 100.0,
+    "mean_burden": 0.09956455720643059,
+    "household_safe_rate": 0.0,
+    "mean_violation_amount": 2020.6839917312905,
+    "mean_violation_ratio_max": 2.572116481467834,
+    "p95_violation_ratio_max": 4.225387292449829,
+    "max_violation_ratio_max": 6.072784254959851
+  },
+  "mean": {
+    "policy": "PPO_cvar_hybrid",
+    "subset": "R_mean",
+    "n": 160,
+    "completion_rate": 100.0,
+    "mean_burden": 0.10874694816456106,
+    "household_safe_rate": 0.0,
+    "mean_violation_amount": 2544.0907176141436,
+    "mean_violation_ratio_max": 2.2375566511274494,
+    "p95_violation_ratio_max": 4.080543465771297,
+    "max_violation_ratio_max": 6.072784254959851
+  }
+}

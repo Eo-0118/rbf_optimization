@@ -1,0 +1,23 @@
+{
+  "config": {
+    "n_train": 1042,
+    "n_eval": 260,
+    "timesteps": 300000,
+    "elapsed_min": 16.48,
+    "algo": "SAC",
+    "gamma": 0.95,
+    "eta": 1.0,
+    "use_lct_state": true,
+    "multi_condition": true
+  },
+  "eval": {
+    "n": 260,
+    "completion_rate": 90.0,
+    "mean_recovery": 0.9628743747737067,
+    "mean_burden": 0.19368046492280125,
+    "mean_household_violation_months": 13.946153846153846,
+    "mean_violation_amount_total": 1787.4934239848903,
+    "mean_violation_ratio_max": 1.5927597024882205,
+    "p95_violation_ratio_max": 3.183727846914499
+  }
+}
