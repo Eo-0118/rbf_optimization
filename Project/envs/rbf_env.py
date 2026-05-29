@@ -64,6 +64,9 @@ class RBFEnv(gym.Env):
         # Lv4 (Day 2): 분포 통합 옵션
         use_forecast_state: bool = False,   # state에 lag-based 분포 추가 여부
         forecast_lag: int = 6,              # 분포 계산용 lag 개월 수
+        # Lv4 (Day 8): 침해 강도 본질 개선
+        eta_proportional: bool = False,     # X1: η × violation_ratio (binary → 비례)
+        r_clip_to_safe: bool = False,       # X2: r_t × R > safe_cap이면 r_t 자동 clipping
     ):
         super().__init__()
         self.cohort_path = Path(cohort_path)
@@ -79,6 +82,8 @@ class RBFEnv(gym.Env):
         self.gamma = gamma
         self.delta = delta
         self.eta = eta                         # v1 신규: 가계 침범 페널티
+        self.eta_proportional = eta_proportional   # X1
+        self.r_clip_to_safe = r_clip_to_safe       # X2
         self.use_forecast_state = use_forecast_state
         self.forecast_lag = forecast_lag
 
@@ -150,9 +155,26 @@ class RBFEnv(gym.Env):
         self.t = 0
         self.cumulative_repaid = 0.0
         self.recent_revs = [0.0, 0.0, 0.0]
-        # 대출 금액 결정 (v1: 고정 비례)
-        self.L = self.loan_multiplier * self.current_seller["mean_rev"]
-        self.target = self.L * self.cap
+
+        # Lv4 Day 11+: 셀러별 (L*, T*, cap*) override 지원
+        L_override = options.get("L_override") if options else None
+        cap_override = options.get("cap_override") if options else None
+        T_override = options.get("T_override") if options else None
+
+        if L_override is not None:
+            self.L = float(L_override)
+        else:
+            self.L = self.loan_multiplier * self.current_seller["mean_rev"]
+        if cap_override is not None:
+            self.episode_cap = float(cap_override)
+        else:
+            self.episode_cap = self.cap
+        if T_override is not None:
+            self.episode_T = int(T_override)
+        else:
+            self.episode_T = self.T
+
+        self.target = self.L * self.episode_cap
         self._episode_log = []
 
         info = {
@@ -160,6 +182,8 @@ class RBFEnv(gym.Env):
             "type": self.current_seller["type"],
             "L": self.L,
             "target": self.target,
+            "cap": self.episode_cap,
+            "T": self.episode_T,
             "m_i": self.m_i,
         }
         return self._get_state(), info
@@ -205,10 +229,22 @@ class RBFEnv(gym.Env):
 
     def step(self, action: np.ndarray):
         # Action 처리 (clip, 단일 값 추출)
-        r_t = float(np.clip(action[0], self.r_min, self.r_max))
+        r_t_raw = float(np.clip(action[0], self.r_min, self.r_max))
 
         # 매출 실현 (합성 데이터에서)
         revenue_t = float(self.current_seller["revenues"][self.t])
+
+        # Two-tier burden 계산 (X2 clipping 전에 safe_cap 결정 위해 미리)
+        operating_profit = revenue_t * self.m_i
+        safe_rbf_cap = max(0.0, operating_profit - self.L_personal_min)
+
+        # X2: r_clip_to_safe — r_t × R > safe_cap이면 r_t를 safe_cap / R로 강제 clipping
+        # (단 r_min 보장: r_t가 너무 작아지지 않도록)
+        if self.r_clip_to_safe and revenue_t > 0:
+            r_max_safe = safe_rbf_cap / revenue_t
+            r_t = max(self.r_min, min(r_t_raw, r_max_safe)) if r_max_safe >= self.r_min else self.r_min
+        else:
+            r_t = r_t_raw
 
         # 상환금 계산
         payment_t = revenue_t * r_t
@@ -216,22 +252,21 @@ class RBFEnv(gym.Env):
 
         # 보상 계산
         recovery_inc = payment_t / max(self.target, 1.0)
-
-        # Two-tier burden (v1: 가계 보호 통합)
-        # Tier 1 (사업): 영업이익 = R_t × m_i 초과 시 운전자금 침범
-        # Tier 2 (가계): 영업이익 - L_personal 초과 시 가계 생활비 침범
-        operating_profit = revenue_t * self.m_i
-        safe_rbf_cap = max(0.0, operating_profit - self.L_personal_min)  # 가계 보호 후 RBF 가용 한도
         excess = max(0.0, payment_t - safe_rbf_cap)
         burden = excess / max(revenue_t, 1.0) if revenue_t > 0 else 0.0
 
         # 가계 침범 여부 — P_t > safe_rbf_cap이면 가계 생활비 영역 침투
         household_violated = (payment_t > safe_rbf_cap) and (revenue_t > 0)
-        household_penalty = -self.eta if household_violated else 0.0
 
-        # A-2: 침해 액도 (정도 측정). 단순 binary 한계 보완.
+        # A-2: 침해 액도 (정도 측정)
         household_violation_amount = max(0.0, payment_t - safe_rbf_cap) if revenue_t > 0 else 0.0
         household_violation_ratio = household_violation_amount / max(self.L_personal_min, 1e-6)
+
+        # X1: η × violation_ratio (binary → 비례). 침해 강도까지 PPO가 회피하도록.
+        if self.eta_proportional:
+            household_penalty = -self.eta * household_violation_ratio if household_violated else 0.0
+        else:
+            household_penalty = -self.eta if household_violated else 0.0
 
         step_reward = self.alpha * recovery_inc - self.beta * burden + household_penalty
 

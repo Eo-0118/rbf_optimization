@@ -1,0 +1,103 @@
+{
+  "config": {
+    "m_i": 0.1,
+    "L_personal": 128.21,
+    "T_max": 36,
+    "cap_base": 1.1,
+    "L_min_business": 100.0
+  },
+  "rejection": {
+    "n_total": 1302,
+    "n_eligible": 160,
+    "n_rejected": 1142,
+    "rejection_rate": 87.71121351766513,
+    "by_reason": {
+      "가계비 충당 불가 (R × m_i ≤ L_personal)": 1138,
+      "L_max < 100.0 (비즈니스 가치 부족)": 4
+    }
+  },
+  "eligible_stats": {
+    "type_dist": {
+      "stable": 122,
+      "growth": 38
+    },
+    "L_star_mean": 3706.6641780011923,
+    "L_star_median": 2223.9564592633933,
+    "cap_star_mean": 1.0625,
+    "T_star_mean": 36.0,
+    "R_mean": 2380.5637367248537,
+    "R_median": 1930.7539672851562
+  },
+  "policy_compare": [
+    {
+      "policy": "Fixed-0.15",
+      "n": 160,
+      "completion_rate": 100.0,
+      "mean_recovery": 1.1140486712008049,
+      "mean_burden": 0.11593301949556542,
+      "mean_household_violation_months": 9.34375,
+      "household_safe_rate": 0.0,
+      "mean_violation_amount_total": 2555.4798639831506,
+      "mean_violation_ratio_max": 2.344409975599711,
+      "p95_violation_ratio_max": 4.080543465771297,
+      "mean_L_applied": 3706.6641780011923,
+      "mean_cap_applied": 1.0625
+    },
+    {
+      "policy": "PPO_base",
+      "n": 160,
+      "completion_rate": 52.5,
+      "mean_recovery": 0.8742073416233177,
+      "mean_burden": 0.11642637279751744,
+      "mean_household_violation_months": 3.43125,
+      "household_safe_rate": 15.625,
+      "mean_violation_amount_total": 599.6204914820346,
+      "mean_violation_ratio_max": 1.8057613588287644,
+      "p95_violation_ratio_max": 4.021834752310662,
+      "mean_L_applied": 3706.6641780011923,
+      "mean_cap_applied": 1.0625
+    },
+    {
+      "policy": "PPO_eta_strong",
+      "n": 160,
+      "completion_rate": 54.37499999999999,
+      "mean_recovery": 0.8884125663965825,
+      "mean_burden": 0.1127926189027995,
+      "mean_household_violation_months": 3.53125,
+      "household_safe_rate": 15.625,
+      "mean_violation_amount_total": 622.5892896150195,
+      "mean_violation_ratio_max": 1.8483156667456782,
+      "p95_violation_ratio_max": 4.162084101180131,
+      "mean_L_applied": 3706.6641780011923,
+      "mean_cap_applied": 1.0625
+    },
+    {
+      "policy": "PPO_x1_only",
+      "n": 160,
+      "completion_rate": 32.5,
+      "mean_recovery": 0.6754387547208931,
+      "mean_burden": 0.014260336960030326,
+      "mean_household_violation_months": 7.78125,
+      "household_safe_rate": 16.25,
+      "mean_violation_amount_total": 174.29039667312531,
+      "mean_violation_ratio_max": 0.21151521390314637,
+      "p95_violation_ratio_max": 0.298889840900591,
+      "mean_L_applied": 3706.6641780011923,
+      "mean_cap_applied": 1.0625
+    },
+    {
+      "policy": "CVaR",
+      "n": 160,
+      "completion_rate": 86.875,
+      "mean_recovery": 1.0569152411930198,
+      "mean_burden": 0.05853235919458871,
+      "mean_household_violation_months": 13.5,
+      "household_safe_rate": 0.0,
+      "mean_violation_amount_total": 1613.3168416878461,
+      "mean_violation_ratio_max": 0.9190054211558343,
+      "p95_violation_ratio_max": 1.0199914270995645,
+      "mean_L_applied": 3706.6641780011923,
+      "mean_cap_applied": 1.0625
+    }
+  ]
+}
